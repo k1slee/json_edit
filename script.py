@@ -83,6 +83,44 @@ def process_json(data):
         fio = " ".join(part for part in (fam, name, otch) if part)
         header = f"{fio} | Док: {cvdoc} | ЛН: {cln} | Страна: {cstranf} | ТС: {nrate}%"
         out_lines.append(header)
+        fields_line = []
+
+        income_val = doc.get("ntsumincome")
+        income_str = format_value(income_val)
+        if income_str != "" and float(income_str) != 0:
+            fields_line.append(f"ntsumincome: {income_str}")
+
+        exemp_val = doc.get("ntsumexemp")
+        exemp_str = format_value(exemp_val)
+        if exemp_str != "" and float(exemp_str) != 0:
+            fields_line.append(f"ntsumexemp: {exemp_str}")
+
+        stand_val = doc.get("nsumstand")
+        stand_str = format_value(stand_val)
+        if stand_str != "" and float(stand_str) != 0:
+            fields_line.append(f"nsumstand: {stand_str}")
+
+        soc_val = doc.get("ntsumsoc")
+        soc_str = format_value(soc_val)
+        if soc_str != "" and float(soc_str) != 0:
+            fields_line.append(f"ntsumsoc: {soc_str}")
+
+        prop_val = doc.get("ntsumprop")
+        prop_str = format_value(prop_val)
+        if prop_str != "" and float(prop_str) != 0:
+            fields_line.append(f"ntsumprop: {prop_str}")
+
+        calc_val = doc.get("ntsumcalcincome")
+        calc_str = format_value(calc_val)
+        if calc_str != "" and float(calc_str) != 0:
+            fields_line.append(f"ntsumcalcincome: {calc_str}")
+
+        if fields_line:
+            out_lines.append(" | ".join(fields_line))
+
+
+
+    
 
         sections = {k: v for k, v in doc.items() if isinstance(v, list)}
 
@@ -110,7 +148,7 @@ def process_json(data):
                         pass
 
                 val_str = format_value(value)
-                if val_str != "" and flaot(val_str) != 0:
+                if val_str != "" and float(val_str) != 0:
                     parts.append(f"{label}={val_str}")
 
             if parts:
