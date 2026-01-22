@@ -110,7 +110,7 @@ def process_json(data):
                         pass
 
                 val_str = format_value(value)
-                if val_str != "":
+                if val_str != "" and flaot(val_str) != 0:
                     parts.append(f"{label}={val_str}")
 
             if parts:
